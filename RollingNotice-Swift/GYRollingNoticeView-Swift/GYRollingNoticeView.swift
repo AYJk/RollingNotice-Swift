@@ -15,6 +15,7 @@ import UIKit
 
 @objc public protocol GYRollingNoticeViewDelegate: NSObjectProtocol {
     @objc optional func rollingNoticeView(_ roolingView: GYRollingNoticeView, didClickAt index: Int)
+    @objc optional func rollingNoticeView(_ roolingView: GYRollingNoticeView, willShowItemAt index: Int)
 }
 
 public enum GYRollingNoticeViewStatus: UInt {
@@ -233,6 +234,7 @@ extension GYRollingNoticeView{
         
         
         if let cell = self.dataSource?.rollingNoticeView(roolingView: self, cellAtIndex: willShowIndex) {
+            self.delegate?.rollingNoticeView?(self, willShowItemAt: willShowIndex)
             willShowCell = cell
             cell.frame = CGRect(x: 0, y: h, width: w, height: h)
             self.addSubview(cell)
